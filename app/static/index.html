@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Price Monitor</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>🏷️ Product Price Monitor</h1>
+    <div id="key-bar">
+      <input id="api-key-input" type="password" placeholder="Paste API key here…" />
+      <button onclick="saveKey()">Save Key</button>
+      <button onclick="triggerRefresh()" id="refresh-btn">⟳ Refresh Data</button>
+      <span id="refresh-status"></span>
+    </div>
+  </header>
+
+  <nav>
+    <button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
+    <button class="tab" onclick="showTab('products')">Products</button>
+    <button class="tab" onclick="showTab('events')">Price Events</button>
+  </nav>
+
+  <!-- DASHBOARD -->
+  <section id="tab-dashboard" class="tab-content active">
+    <h2>Analytics</h2>
+    <div id="stats-grid" class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Total Products</div><div id="stat-total" class="stat-value">—</div></div>
+      <div class="stat-card"><div class="stat-label">Price Changes (24h)</div><div id="stat-changes" class="stat-value">—</div></div>
+      <div class="stat-card"><div class="stat-label">Grailed</div><div id="stat-grailed" class="stat-value">—</div></div>
+      <div class="stat-card"><div class="stat-label">Fashionphile</div><div id="stat-fashionphile" class="stat-value">—</div></div>
+      <div class="stat-card"><div class="stat-label">1stDibs</div><div id="stat-1stdibs" class="stat-value">—</div></div>
+    </div>
+    <h2>Avg Price by Category</h2>
+    <div id="cat-table-wrap"></div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="tab-products" class="tab-content">
+    <h2>Products</h2>
+    <div class="filters">
+      <select id="f-source">
+        <option value="">All Sources</option>
+        <option value="grailed">Grailed</option>
+        <option value="fashionphile">Fashionphile</option>
+        <option value="1stdibs">1stDibs</option>
+      </select>
+      <input id="f-brand" type="text" placeholder="Brand…" />
+      <input id="f-category" type="text" placeholder="Category…" />
+      <input id="f-min" type="number" placeholder="Min $" />
+      <input id="f-max" type="number" placeholder="Max $" />
+      <select id="f-sold">
+        <option value="">Any Status</option>
+        <option value="false">Available</option>
+        <option value="true">Sold</option>
+      </select>
+      <button onclick="loadProducts()">Search</button>
+    </div>
+    <div id="products-list"></div>
+    <div class="pagination">
+      <button id="prev-btn" onclick="changePage(-1)" disabled>← Prev</button>
+      <span id="page-info">Page 1</span>
+      <button id="next-btn" onclick="changePage(1)">Next →</button>
+    </div>
+  </section>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- EVENTS -->
+  <section id="tab-events" class="tab-content">
+    <h2>Price Change Events</h2>
+    <div class="filters">
+      <select id="f-delivered">
+        <option value="">All</option>
+        <option value="false">Pending</option>
+        <option value="true">Delivered</option>
+      </select>
+      <button onclick="loadEvents()">Filter</button>
+    </div>
+    <div id="events-list"></div>
+  </section>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

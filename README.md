@@ -226,3 +226,4 @@ Products are keyed by `(source, external_id)` — they are **not merged across s
 | 8 | `feat: add vanilla JS frontend dashboard and product browser` |
 | 9 | `test: add 14+ tests covering auth, ingest, API, collectors` |
 | 10 | `docs: complete README with API docs and design rationale` |
+<!-- Project completed -->
